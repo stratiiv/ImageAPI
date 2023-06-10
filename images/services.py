@@ -18,10 +18,9 @@ def generate_preview_image(image_path: str, preview_filename: str) -> None:
     preview size, and saves it as a PNG file in the previews directory.
     """
     with Image.open(image_path) as im:
+        print(preview_filename)
+        im.convert("RGB")
         im.thumbnail(PREVIEW_SIZE)
         preview_path = os.path.join(settings.MEDIA_ROOT, 'images', 'previews',
-                                    preview_filename)
-        im.save(preview_path, "PNG")
-
-
-
+                                    preview_filename.replace("webp", "png"))
+        im.save(preview_path, "png")
