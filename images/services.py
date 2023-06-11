@@ -28,3 +28,5 @@ def generate_preview_image(image_path: str, image_name: str) -> str:
     return os.path.join('images', 'previews', preview_filename).replace("\\", "/")
 
 
+def get_image_extension(image_name: str) -> str:
+    return os.path.splitext(image_name)[1].lstrip('.')

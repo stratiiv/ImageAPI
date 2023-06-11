@@ -1,17 +1,17 @@
-import os
 from django.db import models
-from .services import generate_preview_image
+from .services import generate_preview_image, get_image_extension
 
 
 class Image(models.Model):
     """Represents image entity."""
     name = models.CharField(max_length=255)
-    image_type = models.CharField(max_length=255)
     image = models.ImageField(upload_to='images')
     preview = models.CharField(max_length=255, blank=True, null=True)  # URL for preview
+    type = models.CharField(max_length=10, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         """Generate and save the preview image."""
+        self.type = get_image_extension(self.image.name)
         super().save(*args, **kwargs)
         preview_path = generate_preview_image(self.image.path, self.image.name)
         self.preview = preview_path
