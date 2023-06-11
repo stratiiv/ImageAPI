@@ -5,6 +5,7 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 
 PREVIEW_SIZE = (100, 100)
+SIZE_LIMIT = 10 # 10 MB image limit
 
 # Add the parent directory to the Python module search path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -30,3 +31,8 @@ def generate_preview_image(image_path: str, image_name: str) -> str:
 
 def get_image_extension(image_name: str) -> str:
     return os.path.splitext(image_name)[1].lstrip('.')
+
+
+def validate_image(image):
+    if image.size > SIZE_LIMIT * 1024 * 1024:  # in bytes
+        raise ValidationError(f"Max file size is {SIZE_LIMIT}MB")

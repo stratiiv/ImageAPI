@@ -1,11 +1,11 @@
 from django.db import models
-from .services import generate_preview_image, get_image_extension
+from .services import generate_preview_image, get_image_extension, validate_image
 
 
 class Image(models.Model):
     """Represents image entity."""
     name = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='images')
+    image = models.ImageField(upload_to='images', validators=[validate_image])
     preview = models.CharField(max_length=255, blank=True, null=True)  # URL for preview
     type = models.CharField(max_length=10, blank=True, null=True)
 
