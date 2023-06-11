@@ -13,10 +13,8 @@ class Image(models.Model):
     def save(self, *args, **kwargs):
         """Generate and save the preview image."""
         super().save(*args, **kwargs)
-        preview_filename = f"preview_{os.path.basename(self.image.name)}"
-        generate_preview_image(self.image.path, preview_filename)
-        self.preview = os.path.join('images', 'previews',
-                                    preview_filename).replace("\\", "/")
+        preview_path = generate_preview_image(self.image.path, self.image.name)
+        self.preview = preview_path
         super().save(*args, **kwargs)
 
     def __str__(self):
