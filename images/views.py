@@ -4,7 +4,6 @@ from .models import Image
 
 
 class ImageViewSet(ModelViewSet):
+    """Provides CRUD endpoints on Image"""
     serializer_class = ImageSerializer
     queryset = Image.objects.all()
-
-    

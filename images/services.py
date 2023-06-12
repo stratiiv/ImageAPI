@@ -1,31 +1,35 @@
 import sys
 import os
+from io import BytesIO
 from PIL import Image
 from django.conf import settings
 from django.core.exceptions import ValidationError
 
 PREVIEW_SIZE = (100, 100)
-SIZE_LIMIT = 10 # 10 MB image limit
+SIZE_LIMIT = 10  # 10MB image limit
 
 # Add the parent directory to the Python module search path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 
 
-def generate_preview_image(image_path: str, image_name: str) -> str:
-    """Generate a preview image from the original image.
+def generate_preview_image(image_data: bytes, image_name: str) -> str:
+    """Generate a preview image from the original image data.
 
-    This function opens the original image, resizes it to the specified
+    This function takes the image data, resizes it to the specified
     preview size, and saves it as a PNG file in the previews directory.
+
+    Returns path to saved preview.
     """
     preview_filename = f"preview_{os.path.basename(image_name)}"
     preview_filename = os.path.splitext(preview_filename)[0] + ".png"
-    with Image.open(image_path) as im:
+    with Image.open(BytesIO(image_data)) as im:
         im.convert("RGB")
         im.thumbnail(PREVIEW_SIZE)
         preview_path = os.path.join(settings.MEDIA_ROOT, 'images', 'previews',
                                     preview_filename)
-        im.save(preview_path, "png")
+        im.save(preview_path, "PNG")
+
     return os.path.join('images', 'previews', preview_filename).replace("\\", "/")
 
 
