@@ -10,6 +10,8 @@ flake8 = "*"
 pillow = "*"
 psycopg2 = "*"
 psycopg2-binary = "*"
+dj-rest-auth = "*"
+django-allauth = "*"
 
 [dev-packages]
 
