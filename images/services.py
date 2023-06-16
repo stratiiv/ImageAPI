@@ -1,4 +1,3 @@
-import sys
 import os
 from io import BytesIO
 from PIL import Image
@@ -7,10 +6,6 @@ from django.core.exceptions import ValidationError
 
 PREVIEW_SIZE = (100, 100)
 SIZE_LIMIT = 10  # 10MB image limit
-
-# Add the parent directory to the Python module search path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "config.settings")
 
 
 def generate_preview_image(image_data: bytes, image_name: str) -> str:
