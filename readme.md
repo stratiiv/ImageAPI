@@ -20,10 +20,16 @@ pip install pipenv
 ```bash
 pipenv install
 ```
-5. Create a .env file in the project root directory. Add the following line to the file, replacing your_secret_key_here with your actual secret key:
-```
-DJANGO_SECRET_KEY=your_secret_key_here
-```
+5. Set up environment variables:
+   * Create a new file named `.env` in the project's root directory.
+
+   * Open the .env file in a text editor and add the following lines:
+    ```
+    DJANGO_SETTINGS_MODULE=config.settings
+    DJANGO_SECRET_KEY=your_secret_key
+    ```
+Replace `your_secret_key` with the actual secret key.
+     
 6. Launch the virtual environment:
 ```bash
 pipenv shell
