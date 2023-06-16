@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 from .services import (generate_preview_image, get_image_extension,
                        validate_image)
 
@@ -10,6 +11,8 @@ class Image(models.Model):
     preview = models.ImageField(upload_to='images/previews', blank=True,
                                 null=True)   
     type = models.CharField(max_length=10, blank=True, null=True)
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
     def save(self, *args, **kwargs):
         """Generate type and preview of image before saving."""
