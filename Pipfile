@@ -12,6 +12,7 @@ psycopg2 = "*"
 psycopg2-binary = "*"
 dj-rest-auth = "*"
 django-allauth = "*"
+pytest-django = "*"
 
 [dev-packages]
 
